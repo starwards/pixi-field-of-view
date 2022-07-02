@@ -1,5 +1,5 @@
 declare namespace GlobalMixins {
-	interface Rectangle {
-		fitY(rectangle: import('@pixi/math').Rectangle, width: number, height: number): import('@pixi/math').Rectangle;
-	}
+    interface Application {
+        fov: import('pixi-field-of-view').Shadows;
+    }
 }

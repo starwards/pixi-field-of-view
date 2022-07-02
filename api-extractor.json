@@ -22,7 +22,7 @@
     "untrimmedFilePath": "<projectFolder>/index.d.ts"
   },
   "tsdocMetadata": {
-    "enabled": false
+    "enabled": true
   },
   "messages": {
     "compilerMessageReporting": {
