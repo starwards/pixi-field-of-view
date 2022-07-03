@@ -9,15 +9,10 @@ import { preRenderHook } from './pre-render-hook';
 export class FieldOfView {
     // The objects that will block vision
     casterGroup = new Group();
-    casterLayer = new Layer(this.casterGroup);
     // The objects that will remain ontop of the shadows
     overlayGroup = new Group();
-    overlayLayer = new Layer(this.overlayGroup);
     filter: ShadowFilter;
     container = new Container();
-    diffuseLayer: Layer | undefined;
-    normalLayer: Layer | undefined;
-    lightLayer: Layer | undefined;
     constructor(app: Application) {
         // // Create the shadow filter
         this.filter = new ShadowFilter(app.renderer.width, app.renderer.height);
@@ -31,7 +26,7 @@ export class FieldOfView {
         );
         app.stage.addChild(this.container);
         // Set up the shadow layers
-        app.stage.addChild(this.casterLayer, this.overlayLayer);
+        app.stage.addChild(new Layer(this.casterGroup), new Layer(this.overlayGroup));
 
         this.container.filters = [this.filter];
     }
