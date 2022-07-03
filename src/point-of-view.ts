@@ -1,7 +1,7 @@
 import { BLEND_MODES, SCALE_MODES } from '@pixi/constants';
+import { RenderTexture, Renderer } from '@pixi/core';
 
 import { Application } from '@pixi/app';
-import { RenderTexture } from '@pixi/core';
 import { ShadowMapFilter } from './filters/ShadowMapFilter';
 import { ShadowMaskFilter } from './filters/ShadowMaskFilter';
 import { Sprite } from '@pixi/sprite';
@@ -61,7 +61,7 @@ export class PointOfView extends Sprite {
         /**
          * The opacity of the lit area. (may exceed 1).
          */
-        public scatterRange: number = _pointCount == 1 ? 0 : 15
+        public scatterRange: number = _pointCount === 1 ? 0 : 15
     ) {
         super(
             RenderTexture.create({
@@ -117,7 +117,7 @@ export class PointOfView extends Sprite {
         return super.destroy();
     }
     // Don't render this sprite unless we are in the dedicated render step called by the shadow filter
-    renderAdvanced(renderer: any) {
+    renderAdvanced(renderer: Renderer) {
         if (this.renderStep) super.renderAdvanced(renderer);
     }
 

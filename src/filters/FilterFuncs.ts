@@ -1,5 +1,5 @@
 // Some functions to map a value as a color
-export const filterFuncs = /*glsl*/ `
+export const filterFuncs = /* glsl*/ `
 float colorToFloat(vec4 color){
     return (color.r + (color.g + color.b * 256.0) * 256.0) * 255.0 - 8388608.0;
 }
