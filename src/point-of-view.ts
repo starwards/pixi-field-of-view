@@ -84,9 +84,9 @@ export class PointOfView extends Sprite {
     }
     // Create the resources that create the shadow map
     __createShadowMapSources() {
-        if (this._shadowMapSprite) this._shadowMapSprite.destroy();
-        if (this.shadowMapResultSprite) this.shadowMapResultSprite.destroy();
-        if (this._shadowMapResultTexture) this._shadowMapResultTexture.destroy();
+        this._shadowMapSprite?.destroy();
+        this.shadowMapResultSprite?.destroy();
+        this._shadowMapResultTexture?.destroy();
 
         // A blank texture/sprite to apply the filter to
         this._shadowMapResultTexture = RenderTexture.create({
@@ -109,9 +109,9 @@ export class PointOfView extends Sprite {
     }
     // Properly dispose all the created resources
     destroy() {
-        if (this._shadowMapSprite) this._shadowMapSprite.destroy();
-        if (this.shadowMapResultSprite) this.shadowMapResultSprite.destroy();
-        if (this._shadowMapResultTexture) this._shadowMapResultTexture.destroy();
+        this._shadowMapSprite?.destroy();
+        this.shadowMapResultSprite?.destroy();
+        this._shadowMapResultTexture?.destroy();
         this.texture.destroy();
 
         return super.destroy();

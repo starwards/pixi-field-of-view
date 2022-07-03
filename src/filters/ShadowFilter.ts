@@ -69,10 +69,10 @@ export class ShadowFilter extends Filter {
     }
     // PointOfView overlay objects
     __createOverlaySources() {
-        if (this._shadowOverlayResultTexture) this._shadowOverlayResultTexture.destroy();
-        if (this._shadowOverlayResultSprite) this._shadowOverlayResultSprite.destroy();
+        this._shadowOverlayResultTexture?.destroy();
+        this._shadowOverlayResultSprite?.destroy();
 
-        if (!this._shadowOverlayContainer) this._shadowOverlayContainer = new Container();
+        this._shadowOverlayContainer ||= new Container();
 
         // Create the final mask to apply to the container that this filter is applied to
         this._shadowOverlayResultTexture = RenderTexture.create({ width: this._width, height: this._height });
@@ -81,10 +81,10 @@ export class ShadowFilter extends Filter {
     }
     // PointOfView caster objects
     __createCasterSources() {
-        if (this._shadowCasterResultTexture) this._shadowCasterResultTexture.destroy();
-        if (this._shadowCasterResultSprite) this._shadowCasterResultSprite.destroy();
+        this._shadowCasterResultTexture?.destroy();
+        this._shadowCasterResultSprite?.destroy();
 
-        if (!this._shadowCasterContainer) this._shadowCasterContainer = new Container();
+        this._shadowCasterContainer ||= new Container();
 
         // Create the final mask to apply to the container that this filter is applied to
         this._shadowCasterResultTexture = RenderTexture.create({ width: this._width, height: this._height });
@@ -93,16 +93,16 @@ export class ShadowFilter extends Filter {
     }
     // Final mask to apply as a filter
     __createMaskSources() {
-        if (this._maskResultTexture) this._maskResultTexture.destroy();
-        if (this._maskResultSprite) this._maskResultSprite.destroy();
+        this._maskResultTexture?.destroy();
+        this._maskResultSprite?.destroy();
 
         // Create maskMatrix for shader transform data
-        if (!this._maskMatrix) this._maskMatrix = new Matrix();
+        this._maskMatrix ||= new Matrix();
 
         // Create the final mask to apply to the container that this filter is applied to
         this._maskResultTexture = RenderTexture.create({ width: this._width, height: this._height });
         this._maskResultTexture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
-        if (!this._maskContainer) this._maskContainer = new Container();
+        this._maskContainer ||= new Container();
         this._maskResultSprite = new Sprite(this._maskResultTexture);
     }
     // Update the mask texture (called from the Application mixin)
