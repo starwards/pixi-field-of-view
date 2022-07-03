@@ -8,7 +8,6 @@ import { SCALE_MODES } from '@pixi/constants';
 import { Sprite } from '@pixi/sprite';
 
 export class ShadowFilter extends Filter {
-    public tick = 0;
     private _useShadowCastersAsOverlay = true;
     _shadowOverlayResultTexture: RenderTexture | undefined;
     _shadowOverlayResultSprite: Sprite | undefined;
@@ -18,7 +17,7 @@ export class ShadowFilter extends Filter {
     _shadowCasterContainer: Container | undefined;
     _maskResultTexture: RenderTexture | undefined;
     _maskResultSprite: Sprite | undefined;
-    _maskContainer: Container | undefined;
+    _pointsOfViewContainer: Container | undefined;
     _maskMatrix: Matrix | undefined;
     constructor(private _width: number, private _height: number) {
         super(
@@ -102,14 +101,12 @@ export class ShadowFilter extends Filter {
         // Create the final mask to apply to the container that this filter is applied to
         this._maskResultTexture = RenderTexture.create({ width: this._width, height: this._height });
         this._maskResultTexture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
-        this._maskContainer ||= new Container();
+        this._pointsOfViewContainer ||= new Container();
         this._maskResultSprite = new Sprite(this._maskResultTexture);
     }
     // Update the mask texture (called from the Application mixin)
     update(renderer: Application['renderer']) {
-        // Shadows and objects will automatically be added to containers because of the Container mixin
-
-        this.tick++; // Increase the tick so that shadows and objects know they can add themselves to the container again in their next update
+        // Shadows and objects will automatically be added to containers because of the pre-render hook
 
         /* render shadow casters */
         // Remove the parent layer from the objects in order to properly render it to the container
@@ -151,7 +148,7 @@ export class ShadowFilter extends Filter {
             ? this._shadowCasterResultSprite
             : this._shadowOverlayResultSprite;
 
-        this._maskContainer.children.forEach((pointOfView) => {
+        this._pointsOfViewContainer.children.forEach((pointOfView) => {
             if (pointOfView instanceof PointOfView) {
                 pointOfView.renderStep = true;
                 pointOfView.update(renderer, this._shadowCasterResultSprite, overlay);
@@ -159,21 +156,21 @@ export class ShadowFilter extends Filter {
         });
 
         // Render all the final shadow masks onto 1 texture
-        renderer.render(this._maskContainer, {
+        renderer.render(this._pointsOfViewContainer, {
             renderTexture: this._maskResultTexture,
             clear: true,
             skipUpdateTransform: true,
         });
 
         // Indicate that the shadows may no longer render
-        this._maskContainer.children.forEach((pointOfView) => {
+        this._pointsOfViewContainer.children.forEach((pointOfView) => {
             if (pointOfView instanceof PointOfView) {
                 delete pointOfView.renderStep;
             }
         });
 
         // Remove all the shadows from the container
-        this._maskContainer.children.length = 0;
+        this._pointsOfViewContainer.children.length = 0;
     }
 
     //  Apply the filter to a container
