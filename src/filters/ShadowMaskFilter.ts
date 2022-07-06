@@ -1,5 +1,6 @@
 import { Filter, FilterSystem, RenderTexture } from '@pixi/core';
 
+import { CLEAR_MODES } from '@pixi/constants';
 import { Matrix } from '@pixi/math';
 import { PointOfView } from '../point-of-view';
 import { filterFuncs } from './FilterFuncs';
@@ -131,7 +132,7 @@ export class ShadowMaskFilter extends Filter {
         this.uniforms.lightPointCount = pointOfView.pointCount;
     }
 
-    apply(filterManager: FilterSystem, input: RenderTexture, output: RenderTexture) {
+    apply(filterManager: FilterSystem, input: RenderTexture, output: RenderTexture, clearMode?: CLEAR_MODES) {
         // Decide whether or not to darken the overlays
         this.uniforms.darkenOverlay = this.pointOfView.darkenOverlay;
 
@@ -166,6 +167,6 @@ export class ShadowMaskFilter extends Filter {
         this.uniforms.overlayMatrix = filterManager.calculateSpriteMatrix(this.overlayMatrix, sc);
 
         // Apply the filter
-        filterManager.applyFilter(this, input, output);
+        filterManager.applyFilter(this, input, output, clearMode);
     }
 }

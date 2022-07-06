@@ -83,8 +83,8 @@ world.on('mousemove', (event: InteractionEvent) => {
 
 // Create a point of view on click
 world.on('pointerdown', (event: InteractionEvent) => {
-    const shadow2 = new PointOfView(700, 0.7);
+    const pointOfView2 = new PointOfView(700, 0.7);
 
-    shadow2.position.copyFrom(event.data.global);
-    world.addChild(pointOfView);
+    pointOfView2.position.copyFrom(event.data.global);
+    world.addChild(pointOfView2);
 });

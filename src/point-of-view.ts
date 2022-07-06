@@ -53,13 +53,13 @@ export class PointOfView extends Sprite {
      */
     constructor(
         private _range: number,
-        /**
-         * The radius at which the points of the light should be scattered. (Greater range = software shadow).
-         */
-        public intensity: number = 1,
         private _pointCount: number = 20,
         /**
          * The opacity of the lit area. (may exceed 1).
+         */
+        public intensity: number = 1,
+        /**
+         * The radius at which the points of the light should be scattered. (Greater range = software shadow).
          */
         public scatterRange: number = _pointCount === 1 ? 0 : 15
     ) {

@@ -118,14 +118,14 @@ world.on('mousemove', (event: InteractionEvent) => {
 const shadows: PointOfView[] = [];
 
 world.on('pointerdown', (event: InteractionEvent) => {
-    const shadow2 = new PointOfView(700, 0.7);
+    const pointOfView2 = new PointOfView(700, 0.7);
 
-    shadows.push(shadow2);
-    shadow2.position.copyFrom(event.data.global);
-    world.addChild(shadow2);
+    shadows.push(pointOfView2);
+    pointOfView2.position.copyFrom(event.data.global);
+    world.addChild(pointOfView2);
 
     // Set the ignore shadow caster if enabled
-    if (ignore['placed shadows']) shadow2.ignoreShadowCaster = demon1.children[0] as Sprite;
+    if (ignore['placed shadows']) pointOfView2.ignoreShadowCaster = demon1.children[0] as Sprite;
 });
 
 /* The debug debug/demo code */
