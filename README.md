@@ -1,3 +1,7 @@
+## Archived - reference only
+This repository was meant to be used to calculate field of view using GPU shaders for the starwards game, but we decided to forego this design approach and implement it in the game core logic instead. 
+As it was refered in some external correspondence, This repository is left archived as-is.
+
 # pixi-field-of-view
 
 [![npm version](https://badge.fury.io/js/pixi-field-of-view.svg)](https://badge.fury.io/js/pixi-field-of-view)
